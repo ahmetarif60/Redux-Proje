@@ -10,6 +10,8 @@
 
 */
 
+import { ActionTypes } from "../actionTypes";
+
 // state tutacağımız verilerin ilk değeri
 const initialState = {
   todos: [],
@@ -18,23 +20,25 @@ const initialState = {
 
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TODO":
+    case ActionTypes.ADD_TODO:
       const tempTodos = state.todos.concat(action.payload);
 
       return { ...state, todos: tempTodos };
 
-    case "REMOVE_TODO":
+    case ActionTypes.REMOVE_TODO:
       // payload'ile id si gelen todoyu diziden çıkarma
-      const filtred = state.todos.filter(
-        (todo) => todo.id !== action.payload
-      );
+      const filtred = state.todos.filter((todo) => todo.id !== action.payload);
 
       return { ...state, todos: filtred };
 
-      case "UPDATE_TODO":
-        
-      return {...state, todos: copyTodos };
-      
+    case ActionTypes.UPDATE_TODO:
+      const updatedTodos = state.todos.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, is_done: !todo.is_done }
+          : todo
+      );
+      return { ...state, todos: updatedTodos };
+
     // Eğerki gelen akiyon yukardakilerden hicbiri değilse state'i değiştirme
     default:
       return state;
@@ -43,13 +47,12 @@ const todoReducer = (state = initialState, action) => {
 // reducer'ı store'a tanıtmak için export et
 export default todoReducer;
 
-        // //1) splice yöntemi
-        // // a) statedeki todoların kopyasını oluşturun
-        //const copyTodos = [...state.todos];
+// //1) splice yöntemi
+// // a) statedeki todoların kopyasını oluşturun
+//const copyTodos = [...state.todos];
 
-        // // b) güncellenicek elemanın dizide sırasını bul
-        //const index = copyTodos.findIndex((todo) => todo.id === action.payload.id);
+// // b) güncellenicek elemanın dizide sırasını bul
+//const index = copyTodos.findIndex((todo) => todo.id === action.payload.id);
 
-        // //c) spilce ile diziyi güncelle
-        //copyTodos.splice(index, 1, action.payload);
-        
+// //c) spilce ile diziyi güncelle
+//copyTodos.splice(index, 1, action.payload);

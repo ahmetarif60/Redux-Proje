@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import { useDispatch } from 'react-redux';
+import { ActionTypes } from "../redux/actionTypes";
 
 const AddForm = () => {
   // dispatch kurulum
@@ -20,7 +21,7 @@ const AddForm = () => {
 
     // oluşturulan todo'yu store'a ekle
     dispatch({
-      type: "ADD_TODO",
+      type: ActionTypes.ADD_TODO,
       payload: newTodo,
     });
   };

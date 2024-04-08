@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import TodoCard from './TodoCard';
 
 const ListTodos = () => {
@@ -9,11 +9,11 @@ const ListTodos = () => {
   // bunun için => store.reducerİsmi yamamız gerekiyor
   const store = useSelector((store) => store.todoReducer);
 
- 
+  console.log(store.todos);
   return (
     <div>
       {store.todos.map((todo) => (
-        <TodoCard todo = {todo} key={todo.id}/>
+        <TodoCard todo={todo} key={todo.id} />
       ))}
     </div>
   );

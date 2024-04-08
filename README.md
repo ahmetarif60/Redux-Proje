@@ -61,3 +61,4 @@
 
 - Yani store'un güncellnmesi api isteğini sonucuna bağımlı olmalı
 # redux_proje
+# redux_project
