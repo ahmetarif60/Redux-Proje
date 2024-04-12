@@ -12,8 +12,8 @@ const ListTodos = () => {
   console.log(store.todos);
   return (
     <div>
-      {store.todos.map((todo) => (
-        <TodoCard todo={todo} key={todo.id} />
+      {store.todos.map((todo,index) => (
+        <TodoCard todo={todo} key={index} />
       ))}
     </div>
   );

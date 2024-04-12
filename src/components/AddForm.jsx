@@ -1,7 +1,6 @@
 import { v4 } from "uuid";
 import { useDispatch } from 'react-redux';
-import { ActionTypes } from "../redux/actionTypes";
-
+import { addTodo } from "../redux/actions/todoActions";
 const AddForm = () => {
   // dispatch kurulum
   const dispatch = useDispatch();
@@ -20,10 +19,7 @@ const AddForm = () => {
     };
 
     // oluşturulan todo'yu store'a ekle
-    dispatch({
-      type: ActionTypes.ADD_TODO,
-      payload: newTodo,
-    });
+    dispatch(addTodo(newTodo));
   };
   return (
     <form onSubmit={handleSubmit} className="d-flex gap-1 my-5">

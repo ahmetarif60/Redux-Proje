@@ -1,17 +1,14 @@
 import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { useState } from "react";
-import { ActionTypes } from "../redux/actionTypes";
+import { removeTodo, updateTodo } from "../redux/actions/todoActions";
 
 const TodoCard = ({ todo }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   // store'a dan todo'yu kaldır
   const handleDelete = () => {
-    dispatch({
-      type: ActionTypes.REMOVE_TODO,
-      payload: todo.id,
-    });
+    dispatch(removeTodo(todo.id));
   };
 
   // store'daki todo'nun is_done değerini tersine çevir
@@ -20,10 +17,7 @@ const TodoCard = ({ todo }) => {
     const updated = { ...todo, is_done: !todo.is_done };
 
     // store'daki eski todo'yu güncel todo'ile değiştir
-    dispatch({
-      type: ActionTypes.ADD_TODO,
-      payload: updated,
-    });
+    dispatch(updateTodo(updated));
   };
 
   return (
@@ -34,7 +28,7 @@ const TodoCard = ({ todo }) => {
 
       <p>{todo.created_at}</p>
 
-      <button onClick={() => setIsOpen(true)} className="btn btn-primary">
+      <button onClick={() => setIsOpen(false)} className="btn btn-primary">
         Düzenle
       </button>
 
@@ -46,7 +40,7 @@ const TodoCard = ({ todo }) => {
         Sil
       </button>
 
-      {isOpen && <Modal todo={todo} close={()=> setIsOpen(false)} />}
+      {isOpen && <Modal todo={todo} close={() => setIsOpen(false)} />}
     </div>
   );
 };
