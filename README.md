@@ -60,6 +60,8 @@
 - Ancak API isteği başarılı olduktan sonra store güncellenmeli
 
 - Yani store'un güncellnmesi api isteğini sonucuna bağımlı olmalı
-# redux_proje
-# redux_project
-# redux_project123
+
+<h2>Proje Gifi</h2>
+
+<img src="/public/Vite-React-Google-Chrome-2024-04-14-15-52-47.gif"/>
+# Redux-Proje

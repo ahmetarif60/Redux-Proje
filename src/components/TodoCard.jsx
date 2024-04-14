@@ -2,13 +2,19 @@ import { useDispatch } from "react-redux";
 import Modal from "./Modal";
 import { useState } from "react";
 import { removeTodo, updateTodo } from "../redux/actions/todoActions";
+import axios from "axios";
 
 const TodoCard = ({ todo }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   // store'a dan todo'yu kaldır
   const handleDelete = () => {
-    dispatch(removeTodo(todo.id));
+    // api'a silme isteği at
+    axios
+      .delete(`/todos/${todo.id}`)
+      // store'dan sil > arayüzü günceller
+      .then(() => dispatch(removeTodo(todo.id)))
+      .catch(() => alert("silme işleminde bir sorun oluştu"));
   };
 
   // store'daki todo'nun is_done değerini tersine çevir
@@ -16,8 +22,10 @@ const TodoCard = ({ todo }) => {
     // todo'nun is_done değerini terine çevir
     const updated = { ...todo, is_done: !todo.is_done };
 
-    // store'daki eski todo'yu güncel todo'ile değiştir
-    dispatch(updateTodo(updated));
+    axios
+      .put(`/todos/${todo.id}`, updated)
+      // store'daki eski todo'yu güncel todo'ile değiştir
+      .then(() => dispatch(updateTodo(updated)));
   };
 
   return (
@@ -28,7 +36,7 @@ const TodoCard = ({ todo }) => {
 
       <p>{todo.created_at}</p>
 
-      <button onClick={() => setIsOpen(false)} className="btn btn-primary">
+      <button onClick={() => setIsOpen(true)} className="btn btn-primary">
         Düzenle
       </button>
 

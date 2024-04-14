@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { ActionTypes } from "../redux/actionTypes";
 import { updateTodo } from "../redux/actions/todoActions";
+import axios from "axios";
 
 const Modal = ({ todo, close }) => {
   const dispatch = useDispatch();
@@ -15,10 +15,12 @@ const Modal = ({ todo, close }) => {
 
     const updated = { ...todo, text: newText };
 
-    // store'daki  todo'yu güncelle
-    dispatch(updateTodo(updated));
+    axios
+      .put(`/todos/${todo.id}`, updated)
+      // store'daki todoyu güncelle
+      .then(() => dispatch(updateTodo(updated)));
 
-    // modali kapat
+    // modalo kapat
     close();
   };
   return (
@@ -44,7 +46,7 @@ const Modal = ({ todo, close }) => {
             <button onClick={close} type="button" className="btn btn-secondary">
               Vazgec
             </button>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit"  className="btn btn-primary">
               Kaydet
             </button>
           </div>
